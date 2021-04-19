@@ -25,9 +25,9 @@ def derivelist(derlist, select):
         output.append(param[select])
     return output
 
-def getvalues(values):
+def getvalues(values, startval = 0):
     final = []
-    keydict = list(values[0].keys())
+    keydict = list(values[startval].keys())
     keydict = keydict[0]
     for i in values:
         try:
@@ -49,6 +49,7 @@ def dayavg(datadict):
         if time[:10] != currenttime:
             if currenttime != '':
                 avg = total/counter
+                avg = round(avg, 2)
                 avgoutput.append(avg)
                 total = 0
                 counter = 0
@@ -57,6 +58,7 @@ def dayavg(datadict):
         total += value
         counter += 1
     avg = total/counter
+    avg = round(avg, 2)
     avgoutput.append(avg)
     return dateoutput, avgoutput
 
@@ -70,6 +72,11 @@ def sevenMA(values, y, sevenday):
         return sevenMA(values, y, sevenday)
     else:
         return sevenday
+
+def shortdate(dates):
+    for i in range(len(dates)):
+        dates[i] = dates[i][:10]
+    
 
 client = Socrata('data.cityofchicago.org', app_token = config.socratatoken, timeout = 1000)
 
@@ -142,9 +149,24 @@ for i in range(len(dailyaveragebikes)):
 
 print('City of Chicago divvy bike data processed')
 
+#City of Chicago daily case data
+
+dailycases = client.get('naz8-j4nc', select = 'cases_total', order = 'lab_report_date DESC', limit = 3000 )
+dailycasesdates = client.get('naz8-j4nc', select = 'lab_report_date', order = 'lab_report_date DESC', limit = 3000 )
+
+print('City of Chicago daily case data recieved')
+
+dailycases = getvalues(dailycases)[::-1]
+dailycasesdates = getvalues(dailycasesdates, 1)[::-1]
+shortdate(dailycasesdates)
+dailycases.pop()
+trend4 = dict(zip(dailycasesdates, dailycases))
+
+print('City of Chicago daily case data processed')
+
 #Data manipulation
 rows = []
-fields = ['Date', 'GTrend', 'Traffic', 'Bike']
+fields = ['Date', 'Cases', 'GTrend', 'Traffic', 'Bike']
 
 startdate = datetime(2020,1,1)
 enddate = datetime(2021,4,18)
@@ -153,6 +175,10 @@ delta = timedelta(days=1)
 while startdate <= enddate:
     temp = []
     temp.append(str(startdate.strftime("%Y-%m-%d")))
+    try:
+        temp.append(trend4[str(startdate.strftime("%Y-%m-%d"))])
+    except Exception: 
+        temp.append("")
     try:
         temp.append(trend1[str(startdate.strftime("%Y-%m-%d"))])
     except Exception: 
@@ -172,8 +198,12 @@ with open('GFG', 'w') as f:
     write = csv.writer(f)
     write.writerow(fields)
     write.writerows(rows)
+    
 
+
+
+plt.plot(dailybiketime2, dailyaveragebikes)
+plt.plot(dailycasesdates, dailycases)
 plt.plot(cardates, dailyaveragecars)
 plt.plot(x,y)
-plt.plot(dailybiketime2, dailyaveragebikes)
 plt.show()
