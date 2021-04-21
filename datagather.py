@@ -166,7 +166,7 @@ if cocbd == True:
     #City of Chicago divvy bike data
     bikelimit = 100000000
     startdate = datetime(2020,3,1)
-    enddate = datetime(2021,4,18)
+    enddate = datetime(2021,4,20)
     delta = timedelta(days=1)
     dailyavaildock = []
     dailybiketime = []
@@ -219,7 +219,7 @@ if datamanipulation == True:
     fields = ['Date', 'Cases', 'GTrend', 'Traffic', 'Bike']
 
     startdate = datetime(2020,3,1)
-    enddate = datetime(2021,4,18)
+    enddate = datetime(2021,4,20)
     delta = timedelta(days=1)
 
     while startdate <= enddate:
@@ -244,18 +244,18 @@ if datamanipulation == True:
         rows.append(temp)
         startdate += delta
 
-    with open('trenddata.csv', 'w') as f:
+    with open('trend.csv', 'w') as f:
         write = csv.writer(f)
         write.writerow(fields)
         write.writerows(rows)
 
     try:
-        dataset = csv.reader(open('trenddata.csv'))
+        dataset = csv.reader(open('trend.csv'))
         dataset = list(dataset)
         dataset = list(filter(([]).__ne__, dataset))
         fillempty(dataset, 2)
         fillempty(dataset, 3)
-        writer = csv.writer(open('trenddata.csv', 'w'))
+        writer = csv.writer(open('trend.csv', 'w'))
         writer.writerows(dataset)
     except Exception:
         print('Empty values not filled')
