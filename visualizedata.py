@@ -4,8 +4,8 @@ from matplotlib import pyplot
 import numpy as np
 import csv
 
-dataset = read_csv('avg.csv')
-data = np.genfromtxt("avg.csv", delimiter=",")
+dataset = read_csv(r'data/avg.csv')
+data = np.genfromtxt(r"data/avg.csv", delimiter=",")
 data = list(filter(([]).__ne__, data))
 pyplot.plot(data)
 scatter_matrix(dataset)

@@ -17,9 +17,10 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
-import numpy
+import numpy as np
+from sklearn import tree
 
-dataset = read_csv('avgshifted.csv')
+dataset = read_csv(r'data/shifted3.csv')
 
 # Create a validation dataset
 array = dataset.values
@@ -34,7 +35,7 @@ scaler = StandardScaler()
 scaler.fit(X)
 X = scaler.transform(X)
 
-X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.15, random_state=1)
+X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
 
 # Spot Check Algorithms
 models = []
@@ -49,31 +50,47 @@ models.append(('SVM', SVC(gamma='auto')))
 results = []
 names = []
 for name, model in models:
-	kfold = StratifiedKFold(n_splits=4, random_state=1, shuffle=True)
+	kfold = StratifiedKFold(n_splits=3, random_state=1, shuffle=True)
 	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
 	results.append(cv_results)
 	names.append(name)
 	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
 
 # Make predictions on validation dataset
-model = KNeighborsClassifier()
+model = DecisionTreeClassifier()
 model.fit(X_train, Y_train)
 
-test = read_csv('avg.csv')
+test = read_csv(r'data/avg.csv')
 array1 = test.values
 X = array1[:,2:]
 X = X.astype('int')
 
-avgvalues = read_csv('avg.csv')
+avgvalues = read_csv(r'data/avg.csv')
 array2 = avgvalues.values
 y = array2[:,1]
 y=y.astype('int')
+
+
 
 scaler.fit(X)
 X = scaler.transform(X)
 
 predictions = model.predict(X)
-print(predictions)
+
+lastvalues = predictions[-3:]
+print(lastvalues)
+for val in lastvalues:
+	y = np.append(y, val)
+
+# print(y)
+y = np.convolve(y, np.ones(7), 'valid') / 7
+predictions = np.convolve(predictions, np.ones(7), 'valid') / 7
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
+
+
+# print(predictions)
 pyplot.plot(predictions)
 pyplot.plot(y)
 pyplot.show()
