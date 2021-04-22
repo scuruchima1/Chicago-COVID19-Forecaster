@@ -244,18 +244,18 @@ if datamanipulation == True:
         rows.append(temp)
         startdate += delta
 
-    with open('trend.csv', 'w') as f:
+    with open(r'data/trend.csv', 'w') as f:
         write = csv.writer(f)
         write.writerow(fields)
         write.writerows(rows)
 
     try:
-        dataset = csv.reader(open('trend.csv'))
+        dataset = csv.reader(open(r'data/trend.csv'))
         dataset = list(dataset)
         dataset = list(filter(([]).__ne__, dataset))
         fillempty(dataset, 2)
         fillempty(dataset, 3)
-        writer = csv.writer(open('trend.csv', 'w'))
+        writer = csv.writer(open(r'data/trend.csv', 'w'))
         writer.writerows(dataset)
     except Exception:
         print('Empty values not filled')
