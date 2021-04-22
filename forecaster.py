@@ -19,8 +19,9 @@ from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 from sklearn import tree
+import csv
 
-dataset = read_csv(r'data/shifted3.csv')
+dataset = read_csv(r'data/avgshifted3.csv')
 
 # Create a validation dataset
 array = dataset.values
@@ -28,46 +29,49 @@ X = array[:,2:]
 X=X.astype('int')
 y = array[:,1]
 y=y.astype('int')
-print(y)
 
 # Scale dataset
 scaler = StandardScaler()
 scaler.fit(X)
 X = scaler.transform(X)
 
-X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=1)
-
-# Spot Check Algorithms
-models = []
-models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
-models.append(('LDA', LinearDiscriminantAnalysis()))
-models.append(('KNN', KNeighborsClassifier()))
-models.append(('CART', DecisionTreeClassifier()))
-models.append(('NB', GaussianNB()))
-models.append(('SVM', SVC(gamma='auto')))
-
-# Evaluate each model in turn
-results = []
-names = []
-for name, model in models:
-	kfold = StratifiedKFold(n_splits=3, random_state=1, shuffle=True)
-	cv_results = cross_val_score(model, X_train, Y_train, cv=kfold, scoring='accuracy')
-	results.append(cv_results)
-	names.append(name)
-	print('%s: %f (%f)' % (name, cv_results.mean(), cv_results.std()))
+X_train, X_validation, Y_train, Y_validation = train_test_split(X, y, test_size=0.20, random_state=693)
 
 # Make predictions on validation dataset
-model = DecisionTreeClassifier()
+# tr_score = []
+# ts_score = []
+
+# for j in range(1000):
+# 	X_train, X_test, y_train, y_test = train_test_split(X, y , random_state =j,     test_size=0.20)
+# 	model = DecisionTreeClassifier(random_state = 1)
+# 	model.fit(X_train, y_train)
+
+# 	tr_score.append(model.score(X_train, y_train))
+# 	ts_score.append(model.score(X_test, y_test))
+
+# J = ts_score.index(np.max(ts_score))
+# print(np.max(ts_score))
+# print(J)
+# X_train, X_test, y_train, y_test = train_test_split(X, y , random_state = 693, test_size=0.20)
+# model = DecisionTreeClassifier(random_state=693)
+# model.fit(X_train,y_train)
+# y_pred = model.predict(X_test)
+
+#693 68
+#2 3 15 19 26 28 31 35 87 89
+
+model = DecisionTreeClassifier(random_state=0)
 model.fit(X_train, Y_train)
+# scores.append(model.score(X_validation, Y_validation))
 
 test = read_csv(r'data/avg.csv')
 array1 = test.values
-X = array1[:,2:]
+X = array1[:-3,2:]
 X = X.astype('int')
 
-avgvalues = read_csv(r'data/avg.csv')
+avgvalues = read_csv(r'data/trend.csv')
 array2 = avgvalues.values
-y = array2[:,1]
+y = array2[:-3,1]
 y=y.astype('int')
 
 
@@ -89,8 +93,28 @@ predictions = np.insert(predictions, 0,0, axis=0)
 predictions = np.insert(predictions, 0,0, axis=0)
 predictions = np.insert(predictions, 0,0, axis=0)
 
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
+predictions = np.insert(predictions, 0,0, axis=0)
 
+predictedthree = y.tolist()
+predictedthree = predictedthree[-6:]
+predictedthree = np.array(predictedthree)
+print(predictedthree)
 # print(predictions)
-pyplot.plot(predictions)
+# pyplot.plot(predictions)
+predicted = np.reshape(predictedthree, (-1,1))
+print(predicted)
+writer = csv.writer(open(r'data/prediction.csv', 'w'))
+writer.writerows(predicted)
+predictedthree = predictedthree[-3:]
 pyplot.plot(y)
+pyplot.plot([len(y)-3,len(y)-2,len(y)-1],predictedthree)
 pyplot.show()
+
+# J = scores.index(np.max(scores))
+# print(np.max(scores))
+# print(J)
