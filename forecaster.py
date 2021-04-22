@@ -101,7 +101,7 @@ predictions = np.insert(predictions, 0,0, axis=0)
 predictions = np.insert(predictions, 0,0, axis=0)
 
 predictedthree = y.tolist()
-predictedthree = predictedthree[-10:]
+predictedthree = predictedthree[-14:]
 predictedthree = np.array(predictedthree)
 print(predictedthree)
 # print(predictions)
