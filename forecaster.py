@@ -101,7 +101,7 @@ predictions = np.insert(predictions, 0,0, axis=0)
 predictions = np.insert(predictions, 0,0, axis=0)
 
 predictedthree = y.tolist()
-predictedthree = predictedthree[-6:]
+predictedthree = predictedthree[-10:]
 predictedthree = np.array(predictedthree)
 print(predictedthree)
 # print(predictions)
@@ -114,6 +114,7 @@ predictedthree = predictedthree[-3:]
 pyplot.plot(y)
 pyplot.plot([len(y)-3,len(y)-2,len(y)-1],predictedthree)
 pyplot.show()
+#fix prediction days 
 
 # J = scores.index(np.max(scores))
 # print(np.max(scores))
