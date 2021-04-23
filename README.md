@@ -17,9 +17,8 @@ Chicago COVID-19 Forecaster is a forecaster program that takes data from google 
   - bike, average bikes being used per dock in Chicago
 2. avg.csv, all raw data values put into a 7-day moving average, first 6 raw days are removed.
 3. prediction.csv, 14-day data set with 11 real days and 3 predicted days
-4. Next data sets are usually used to train the machine learning model
-  - shifted3.csv, all columns except for date and cases shifted down 3 days
-  - avgshifted3.csv, all columns except for date and cases shifted down 3 days, columns are then set to a 7-day moving average
-  - nobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days
-  - avgnobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days, columns are then set to a 7-day moving average
+4. shifted3.csv, all columns except for date and cases shifted down 3 days
+5. avgshifted3.csv, all columns except for date and cases shifted down 3 days, columns are then set to a 7-day moving average
+6. nobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days
+7. avgnobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days, columns are then set to a 7-day moving average
 
