@@ -10,8 +10,8 @@ Chicago COVID-19 Forecaster is a forecaster program that takes data from google 
 
 # Data CSVs
 - trend.csv, raw data values in with columns (date, cases, gtrend, traffic, bike)
-  date, YYYY-MM-DD
-  cases, confirmed cases
+  *date, YYYY-MM-DD
+  *cases, confirmed cases
   gtrend, google trend average score for "covid symptoms" and "covid testing near me" in Chicago
   traffic, average GPS pings in different Chicago regions
   bike, average bikes being used per dock in Chicago
