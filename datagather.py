@@ -7,6 +7,7 @@ from sodapy import Socrata
 import config
 from pytrends.dailydata import get_daily_data
 
+#Useful functions 
 def getavg(avglist, begin):
     output = []
     for i in range(begin, len(avglist)):
@@ -96,13 +97,16 @@ def fillempty(dataset,field):
                     dataset[row-fillin][field] = round(endvalue,2)
                 counter = 0
 
+# Declarations
 client = Socrata('data.cityofchicago.org', app_token = config.socratatoken, timeout = 1000)
 
 gtrendrun = True
-
 if gtrendrun == True:
     #Google trend data
     #Pytrend API calls for covid symptoms and covid testing near me
+
+    print('Google trend data gathering')
+
     gtrend1 = get_daily_data('covid symptoms', start_year=2020, start_mon=3, stop_year=2021, stop_mon=4 , geo= 'US-IL-602')
     gtrend2 = get_daily_data('covid testing near me', start_year=2020, start_mon=3, stop_year=2021, stop_mon=4 , geo= 'US-IL-602')
 
@@ -143,9 +147,11 @@ if gtrendrun == True:
     print('Google trend data processed')
 
 coctd = True
-
 if coctd == True:
     #City of Chicago traffic data
+
+    print('City of Chicago traffic data gathering')
+
     carlimit = 10000000
     dailycars = client.get('kf7e-cur8', select = 'num_reads', where = 'time > "2020-03-01"', order = 'time DESC', limit = carlimit)
     dailytime = client.get('kf7e-cur8', select = 'time', where = 'time > "2020-03-01"', order = 'time DESC', limit = carlimit)
@@ -161,16 +167,18 @@ if coctd == True:
     print('City of Chicago traffic data processed')
 
 cocbd = True
-
 if cocbd == True:
     #City of Chicago divvy bike data
     bikelimit = 100000000
     startdate = datetime(2020,3,1)
-    enddate = datetime(2021,4,20)
+    #Make enddate always be current day
+    enddate = datetime(2021,4,23)
     delta = timedelta(days=1)
     dailyavaildock = []
     dailybiketime = []
     dailybiketime2 = []
+
+    print('City of Chicago divvy bike data gathering')
 
     while startdate <= enddate:
         dailyavaildock.extend(client.get('eq45-8inv',  select = 'available_docks', where = f'timestamp between "{startdate.strftime("%Y-%m-%d")}T12:00:00" and "{startdate.strftime("%Y-%m-%d")}T13:00:00"', order = 'timestamp DESC', limit = bikelimit))
@@ -195,33 +203,37 @@ if cocbd == True:
     print('City of Chicago divvy bike data processed')
 
 coccd = True
-
 if coccd == True:
     #City of Chicago daily case data
+
+    print('City of Chicago daily case data gathering')
+
     dailycases = client.get('naz8-j4nc', select = 'cases_total', order = 'lab_report_date DESC', limit = 3000 )
     dailycasesdates = client.get('naz8-j4nc', select = 'lab_report_date', order = 'lab_report_date DESC', limit = 3000 )
 
     print('City of Chicago daily case data recieved')
-
+    #try lab_report_date ACSEN 
     dailycases = getvalues(dailycases)[::-1]
     dailycasesdates = getvalues(dailycasesdates, 1)[::-1]
     shortdate(dailycasesdates)
+    #Check this line V
     dailycases.pop()
     trend4 = dict(zip(dailycasesdates, dailycases))
 
     print('City of Chicago daily case data processed')
 
 datamanipulation = True
-
 if datamanipulation == True:
     #Data manipulation
     rows = []
     fields = ['Date', 'Cases', 'GTrend', 'Traffic', 'Bike']
 
     startdate = datetime(2020,3,1)
-    enddate = datetime(2021,4,20)
+    #Make enddate always be current day
+    enddate = datetime(2021,4,23)
     delta = timedelta(days=1)
 
+    #Master data set assembly 
     while startdate <= enddate:
         temp = []
         temp.append(str(startdate.strftime("%Y-%m-%d")))

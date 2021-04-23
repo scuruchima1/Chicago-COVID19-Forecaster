@@ -1,13 +1,11 @@
 import csv
 import numpy as np
-import pandas as pd
-from matplotlib import pyplot
 
-# Datasets to make:
-# nobikeshifted
-# shifted
-# avgnobikeshifted
-# avgshifted
+# Datasets made:
+# nobikeshifted3
+# shifted3
+# avgnobikeshifted3
+# avgshifted3
 # avg
 
 def malist(array,index,ma):
