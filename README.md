@@ -1,6 +1,11 @@
 # Chicago-COVID19-Forecaster
 Chicago COVID-19 Forecaster is a forecaster program that takes data from google search trends, Chicago street congestion data, and divvy bike data to formulate a forecast on the spread of COVID-19 in Chicago. 
 
+[![forthebadge made-with-python](https://img.shields.io/badge/python-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![ChiCovid19 Twitter](https://img.shields.io/badge/ChiCovid19-%231DA1F2.svg?&style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/chicovid19/)
+[![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?&style=for-the-badge)]()
+
 ## Python Scripts 
 - datagather.py, Gathers data from multiple APIs and puts them in the master data set, trend.csv
 - forecaster.py, Machine learning script that makes a model to forecast new cases for the next 3 days. This script makes a 14-day data set with 11 real days and 3 predicted days in, prediction.csv
@@ -22,3 +27,11 @@ Chicago COVID-19 Forecaster is a forecaster program that takes data from google 
 6. nobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days
 7. avgnobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days, columns are then set to a 7-day moving average
 
+## Order Of Scripts
+- Scripts should be run in the following order to ensure proper results
+1. datagather.py
+2. makesets.py
+3. forecaster.py
+- The following scripts have no proper order and serve as visual aids
+1. graphic.py
+2. visualizedata.py
