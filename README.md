@@ -22,3 +22,11 @@ Chicago COVID-19 Forecaster is a forecaster program that takes data from google 
 6. nobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days
 7. avgnobikeshifted3.csv, bike column removed, all columns except for date and cases shifted down 3 days, columns are then set to a 7-day moving average
 
+## Order Of Scripts
+- Scripts should be run in the following order to ensure proper results
+1. datagather.py
+2. makesets.py
+3. forecaster.py
+- The following scripts have no proper order and serve as visual aids
+1. graphic.py
+2. visualizedata.py
