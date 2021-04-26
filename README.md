@@ -1,4 +1,4 @@
-# Chicago-COVID19-Forecaster
+# Chicago COVID-19 Forecaster
 Chicago COVID-19 Forecaster is a forecaster program that takes data from google search trends, Chicago street congestion data, and divvy bike data to formulate a forecast on the spread of COVID-19 in Chicago. 
 
 [![forthebadge made-with-python](https://img.shields.io/badge/python-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
