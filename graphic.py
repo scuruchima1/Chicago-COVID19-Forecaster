@@ -92,7 +92,7 @@ otdate2 = client.get("gkdw-2tgv", select = 'date', order='date')
 
 # 3rd data set
 # 3 day prediction with 11 real days
-predictionurl = 'https://raw.githubusercontent.com/scuruchima1/Chicago-COVID19-Forecaster/main/data/prediction.csv'
+predictionurl = open(r'data/prediction.csv', 'r')
 prediction = pd.read_csv(predictionurl,names=['cases'])
 prediction = prediction.values.tolist()
 begindays = prediction[:-3]
