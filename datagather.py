@@ -172,7 +172,7 @@ if cocbd == True:
     bikelimit = 100000000
     startdate = datetime(2020,3,1)
     #Make enddate always be current day
-    enddate = datetime(2021,4,29)
+    enddate = datetime(2021,4,30)
     delta = timedelta(days=1)
     dailyavaildock = []
     dailybiketime = []
@@ -230,7 +230,7 @@ if datamanipulation == True:
 
     startdate = datetime(2020,3,1)
     #Make enddate always be current day
-    enddate = datetime(2021,4,29)
+    enddate = datetime(2021,4,30)
     delta = timedelta(days=1)
 
     #Master data set assembly 
