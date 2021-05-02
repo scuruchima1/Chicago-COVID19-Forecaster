@@ -107,8 +107,8 @@ if gtrendrun == True:
 
     print('Google trend data gathering')
 
-    gtrend1 = get_daily_data('covid symptoms', start_year=2020, start_mon=3, stop_year=2021, stop_mon=4 , geo= 'US-IL-602')
-    gtrend2 = get_daily_data('covid testing near me', start_year=2020, start_mon=3, stop_year=2021, stop_mon=4 , geo= 'US-IL-602')
+    gtrend1 = get_daily_data('covid symptoms', start_year=2020, start_mon=3, stop_year=2021, stop_mon=5 , geo= 'US-IL-602')
+    gtrend2 = get_daily_data('covid testing near me', start_year=2020, start_mon=3, stop_year=2021, stop_mon=5 , geo= 'US-IL-602')
 
     print('Google trend data recieved')
 
@@ -172,7 +172,7 @@ if cocbd == True:
     bikelimit = 100000000
     startdate = datetime(2020,3,1)
     #Make enddate always be current day
-    enddate = datetime(2021,4,30)
+    enddate = datetime(2021,5,1)
     delta = timedelta(days=1)
     dailyavaildock = []
     dailybiketime = []
@@ -230,7 +230,7 @@ if datamanipulation == True:
 
     startdate = datetime(2020,3,1)
     #Make enddate always be current day
-    enddate = datetime(2021,4,30)
+    enddate = datetime(2021,5,1)
     delta = timedelta(days=1)
 
     #Master data set assembly 
