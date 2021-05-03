@@ -1,6 +1,6 @@
 import requests
 import csv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 import pprint
 import pandas
 from sodapy import Socrata
@@ -99,6 +99,9 @@ def fillempty(dataset,field):
 
 # Declarations
 client = Socrata('data.cityofchicago.org', app_token = config.socratatoken, timeout = 1000)
+currentday = int(date.today().strftime("%d"))
+currentmonth = int(date.today().strftime("%m"))
+
 
 gtrendrun = True
 if gtrendrun == True:
@@ -172,7 +175,7 @@ if cocbd == True:
     bikelimit = 100000000
     startdate = datetime(2020,3,1)
     #Make enddate always be current day
-    enddate = datetime(2021,5,2)
+    enddate = datetime(2021,currentmonth,currentday)
     delta = timedelta(days=1)
     dailyavaildock = []
     dailybiketime = []
@@ -230,7 +233,7 @@ if datamanipulation == True:
 
     startdate = datetime(2020,3,1)
     #Make enddate always be current day
-    enddate = datetime(2021,5,2)
+    enddate = datetime(2021,currentmonth,currentday)
     delta = timedelta(days=1)
 
     #Master data set assembly 
