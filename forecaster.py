@@ -76,4 +76,4 @@ predictedthree = predictedthree[-4:]
 pyplot.plot(y)
 pyplot.plot(predictions)
 pyplot.plot([len(y)-4,len(y)-3,len(y)-2,len(y)-1],predictedthree)
-pyplot.show()
+# pyplot.show()
