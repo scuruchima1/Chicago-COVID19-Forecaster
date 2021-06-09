@@ -110,8 +110,8 @@ if gtrendrun == True:
 
     print('Google trend data gathering')
 
-    gtrend1 = get_daily_data('covid symptoms', start_year=2020, start_mon=3, stop_year=2021, stop_mon=5 , geo= 'US-IL-602')
-    gtrend2 = get_daily_data('covid testing near me', start_year=2020, start_mon=3, stop_year=2021, stop_mon=5 , geo= 'US-IL-602')
+    gtrend1 = get_daily_data('covid symptoms', start_year=2020, start_mon=3, stop_year=2021, stop_mon=6 , geo= 'US-IL-602')
+    gtrend2 = get_daily_data('covid testing near me', start_year=2020, start_mon=3, stop_year=2021, stop_mon=6 , geo= 'US-IL-602')
 
     print('Google trend data recieved')
 
